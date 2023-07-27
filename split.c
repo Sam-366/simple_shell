@@ -16,7 +16,7 @@ char *swap_char(char *input, int bool)
 
 	if (bool == 0)
 	{
-		for (k = 0; input[i]; k++)
+		for (k = 0; input[k]; k++)
 		{
 			if (input[k] == '|')
 			{
