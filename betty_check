@@ -1,0 +1,19 @@
+#include "simple_shell.h"
+
+/**
+ * main - Display Parent and Child PID
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+	pid_t _pid;
+
+	_pid = getpid();
+	printf("Child PID: %u\n", _pid);
+
+	_pid = getppid();
+	printf("Parent PID: %u\n", _pid);
+
+	return (0);
+}

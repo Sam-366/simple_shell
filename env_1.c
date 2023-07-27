@@ -1,0 +1,86 @@
+#include "simple_shell.h"
+
+/**
+ * cmp_env_name - function that compares env variables names
+ *
+ * @nenv: name of the env var
+ *
+ * @name: name passed
+ *
+ * Return: 0 if are not equal. Another value if they are.
+ */
+
+int cmp_env_name(const char *nenv, const char *name)
+{
+	int k;
+
+	for (k = 0; nenv[k] != '='; k++)
+	{
+		if (nenv[k] != name[k])
+		{
+			return (0);
+		}
+	}
+
+	return (k + 1);
+}
+
+/**
+ * _getenv - function that gets an environment variable
+ *
+ * @name: name of the env variable
+ *
+ * @_environ: env variable
+ *
+ * Return: value of the environment variable if is found.
+ */
+
+char *_getenv(const char *name, char **_environ)
+{
+	char *ptr_env;
+	int i, mov;
+
+	/* Initialize ptr_env value */
+	ptr_env = NULL;
+	mov = 0;
+	/* Compare all environment variables */
+	/* environ is declared in the header file */
+	for (i = 0; _environ[i]; i++)
+	{
+		/* If name and env are equal */
+		mov = cmp_env_name(_environ[i], name);
+		if (mov)
+		{
+			ptr_env = _environ[i];
+			break;
+		}
+	}
+
+	return (ptr_env + mov);
+}
+
+/**
+ * _env - function that prints the evironment variables
+ *
+ * @datash: data relevant.
+ *
+ * Return: 1 on success, otherwise 0.
+ */
+
+int _env(data_shell *datash)
+{
+	int i, j;
+
+	for (i = 0; datash->_environ[i]; i++)
+	{
+
+		for (j = 0; datash->_environ[i][j]; j++)
+			;
+
+		write(STDOUT_FILENO, datash->_environ[i], j);
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	datash->status = 0;
+
+	return (1);
+}
